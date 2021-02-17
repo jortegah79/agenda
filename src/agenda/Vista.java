@@ -96,7 +96,7 @@ public class Vista {
         if (tipo == 2 || tipo == 3) {
             mensaje("Escribe la cuenta de  facebook");
             facebook = teclado.nextLine();
-            mensaje("Escribe la cuenta de twitter twitter");
+            mensaje("Escribe la cuenta de twitter ");
             twitter = teclado.nextLine();
         }//hasta aqui serian los amigos.
         if (tipo == 3) {
@@ -130,7 +130,7 @@ public class Vista {
         String nombre, email, facebook, twitter, direccion;
         int telefono;
         System.out.println("Tu agenda dispone de los siguientes contactos\n");
-        mensaje("contacto\tNombre\t\tTelefono\temail\n");
+        mensaje("contacto\t Nombre\t\tTelefono\temail\n");
         for (int i = 0; i < lista.length; i++) {
             if (lista[i] != null) {
                 mensaje(lista[i].toString());

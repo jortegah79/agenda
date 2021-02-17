@@ -98,17 +98,17 @@ public class Agenda {
     public  Contacto [] mostrarContactos() {
         modelo m=new modelo();
         Contacto c=new Contacto();
-
+        Contacto[]  lista;
         try {
             FileInputStream fis = new FileInputStream("d:/agenda.dat");
             ObjectInputStream ois = new ObjectInputStream(fis);
             //creamos un flujo de datos para mostrar los contactos de nuestro archivo y se lo mandamos a la clase companero
-            Contacto[] lista =m.leerDatos(ois);
-            return lista;
+            lista =m.leerDatos(ois);
+        
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Contacto[] lista = new Contacto[150];
+        lista = new Contacto[150];
         return lista;
     }
 

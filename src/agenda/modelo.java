@@ -1,4 +1,4 @@
-/*
+                /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,6 +6,8 @@
 package agenda;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,24 +25,36 @@ class modelo {
         } catch (IOException e) {
             e.getMessage();
         }
-        
+
         v.mensaje("Contacto introducido");
     }
 
-    public void escribeContacto(MiObjectOutputStream oos, Contacto c) {
-        //cogemos el flujo de datos que viene de la clase agenda y el objeto de la clase companero
-        //que hemos creado en la clase vista y enviamos los datos al archivo incluido un boolean para indicar si esta o no borrado.
-//        try {
-//
-//            dos.writeUTF(c.nombre);
-//            dos.writeInt(c.telefono);
-//            dos.writeUTF(c.email);
-//            dos.writeBoolean(c.borrado);
-//
-//        } catch (IOException e) {
-//            e.getMessage();
-//        }
-//        Vista.mensaje("Contacto introducido");
+    public Contacto[] leerDatos(ObjectInputStream ois) {
+        //declaramos algunas variables. 
+        String [][]lista=new String[150][9];
+        int i = 0;
+//        Contacto[] lista = new Contacto[150];
+        Contacto c;
+
+        try {
+            while (ois.available() > 0 && i < 150) {
+                //mientras haya datos por leer, leeremos objetos casteados de tipo contactos    
+                c = (Contacto) ois.readObject();
+               lista[i][0]=c.getId()+"";
+               lista[i][1]=c.getTipoContacto();
+               lista[i][2]=c.getNombre();
+               lista[i][3]=c.getTelefono()+"";
+               lista[i][4]=c.getEmail();
+               lista[i][5]=c.
+               
+               
+                i++;
+            }
+
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
     }
 
     public void escribeContacto(ObjectOutputStream oos, Contacto[] lista) {
@@ -65,27 +79,21 @@ class modelo {
 //        }
     }
 
-    public Contacto[] leerDatos(ObjectInputStream ois) {
-//        int i = 0;
-//        Contacto[] lista = new Contacto[150];
+    public void escribeContacto(MiObjectOutputStream oos, Contacto c) {
+//        cogemos el flujo de datos que viene de la clase agenda y el objeto de la clase companero
+//        que hemos creado en la clase vista y enviamos los datos al archivo incluido un boolean para indicar si esta o no borrado.
 //        try {
-//            while (ois.available() > 0 && i < 150) {
-//                nombre = dis.readUTF();
-//                telefono = dis.readInt();
-//                email = dis.readUTF();
-//                borrado = dis.readBoolean();
-//               
-//                //Controlamos si esta borrado el contacto
-//                if (borrado != true) {
-//                    companero c = new companero(nombre, telefono, email, borrado);
-//                    lista[i] = c;
-//                    i++;
-//                }
-//            }
+//
+//            dos.writeUTF(c.nombre);
+//            dos.writeInt(c.telefono);
+//            dos.writeUTF(c.email);
+//            dos.writeBoolean(c.borrado);
+//
 //        } catch (IOException e) {
 //            e.getMessage();
 //        }
-        return null;//lista;
-    }
+//        Vista.mensaje("Contacto introducido");
+//    }
 
+    }
 }
