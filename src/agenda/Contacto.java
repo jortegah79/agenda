@@ -82,7 +82,7 @@ public class Contacto implements Serializable {
     }
 }
 
-class companero extends Contacto {
+class companero extends Contacto implements Serializable  {
 
     private String nombre;
     private int telefono;
@@ -101,7 +101,7 @@ class companero extends Contacto {
     }
 }
 
-class amigos extends companero {
+class amigos extends companero implements Serializable {
 
     private String nombre;
     private int telefono;
@@ -140,7 +140,7 @@ class amigos extends companero {
     }
 }
 
-class familia extends amigos {
+class familia extends amigos implements Serializable  {
 
     private String nombre;
     private int telefono;
