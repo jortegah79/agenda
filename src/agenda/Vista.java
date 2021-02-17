@@ -44,6 +44,7 @@ public class Vista {
         } while (seleccion < MINOPCIONES && seleccion > MAXOPCIONES);
         return seleccion;
     }
+    //metodo que sirve para seleccionar el tipo de contacto que vamos a crear.
 
     public int seleccionTipoContacto() {
         Scanner teclado = new Scanner(System.in);
@@ -62,8 +63,9 @@ public class Vista {
         }
         return tipo;
     }
-    //Este es el metodo que nos permite entrar los datos de los nuevos contactos.
 
+    //**************************************************************************************************************************************************
+    //Este es el metodo que nos permite entrar los datos de los nuevos contactos.    
     public Contacto nuevoContacto() {
         //solicitamos que tipo de contacto es
         int tipo = seleccionTipoContacto();
@@ -87,6 +89,7 @@ public class Vista {
                     mensaje("Error.No es un entero");
                 }
             }
+            teclado.nextLine();
             mensaje("Introduce el email");
             email = teclado.nextLine();
         }//hasta aqui seria un companero...si es de los otros 2 tipos , continuara
@@ -110,12 +113,11 @@ public class Vista {
 
         } else {
             c = new familia(nombre, telefono, email, facebook, twitter, direccion);
-            mensaje("contacto introducido.\n");
-
         }
         mensaje("contacto introducido.\n");
         return c;
     }
+//*******************************************************************************************************************************************************************************
 
     public void mensaje(String mensaje) {
         System.out.println(mensaje);
