@@ -19,20 +19,53 @@ public class Contacto implements Serializable {
     private int id;
     private static int idSiguiente;
     private String tipoContacto;
-    private boolean borrado;
+    private String facebook;
+    private String twitter;
+    private String direccion;
+    
+    
     public Contacto(){
         
     }          
 
     public Contacto(String nombre, int telefono, String email) {
+        
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
+        facebook = "";
+        twitter = "";
+        direccion = "";
+        tipoContacto = "companero";
         id = idSiguiente;
         idSiguiente++;
-        tipoContacto = "";
-        borrado=false;
     }
+     public Contacto(String nombre, int telefono, String email, String facebook, String twitter) {
+        
+          
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.email = email;
+        this.facebook = facebook;
+        this.twitter = twitter;
+        direccion = "";
+        tipoContacto = "amigos";
+        id = idSiguiente;
+        idSiguiente++;
+    }
+     public Contacto(String nombre, int telefono, String email, String facebook, String twitter, String direccion) {
+        
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.email = email;
+        this.facebook = facebook;
+        this.twitter = twitter;
+        this.direccion = direccion;
+        tipoContacto = "familia";
+        id = idSiguiente;
+        idSiguiente++;
+    }
+
 
     public String getNombre() {
         return nombre;
@@ -65,61 +98,15 @@ public class Contacto implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    public void setBorrado(boolean borrado){
-        this.borrado=borrado;
-    }
-    public boolean isBorrado(){
-        return borrado;
-    }
+    
     public void setTipoContacto(String tipoContacto){
         this.tipoContacto=tipoContacto;
     }
     public String getTipoContacto(){
         return tipoContacto;
     }
-    public String toString(){
-        return ("Id: "+ id + "\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email);
-    }
-}
-
-class companero extends Contacto implements Serializable  {
-
-    private String nombre;
-    private int telefono;
-    private String email;
-    private String tipoContacto;
-
-    public companero(String nombre, int telefono, String email) {
-        super(nombre, telefono, email);
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
-        tipoContacto = "companero";
-    }
- public String toString(){
-        return ("Id: "+ getId() + "\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email);
-    }
-}
-
-class amigos extends companero implements Serializable {
-
-    private String nombre;
-    private int telefono;
-    private String email;
-    private String facebook;
-    private String twitter;
-    private String tipoContacto;
-
-    public amigos(String nombre, int telefono, String email, String facebook, String twitter) {
-        super(nombre, telefono, email);
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
-        this.facebook = facebook;
-        this.twitter = twitter;
-        tipoContacto = "amigos";
-    }
-
+    
+    
     public String getTwitter() {
         return twitter;
     }
@@ -135,32 +122,6 @@ class amigos extends companero implements Serializable {
     public void setFacebook(String facebook) {
         this.facebook = facebook;
     }
-    public String toString(){
-        return ("Id: "+ getId() + "\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter );
-    }
-}
-
-class familia extends amigos implements Serializable  {
-
-    private String nombre;
-    private int telefono;
-    private String email;
-    private String facebook;
-    private String twitter;
-    private String direccion;
-    private String tipoContacto;
-
-    public familia(String nombre, int telefono, String email, String facebook, String twitter, String direccion) {
-        super(nombre, telefono, email,facebook,twitter);
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
-        this.facebook = facebook;
-        this.twitter = twitter;
-        this.direccion = direccion;
-        tipoContacto = "familia";
-    }
-
     public String getDireccion() {
         return direccion;
     }
@@ -169,6 +130,6 @@ class familia extends amigos implements Serializable  {
         this.direccion = direccion;
     }
     public String toString(){
-        return ("Id: "+ getId() + "\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter +"\t"+ direccion);
+        return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter +"\t"+ direccion);
     }
 }
