@@ -52,22 +52,22 @@ public class Agenda {
                 break;
             case 3:
                 //mediante un método, buscamos un contacto mediante el nombre y lo mostramos mediante la vista.
-                Contacto c = busquedaNombre(mostrarContactos());
-                v.muestraContactoNombre(c);
+//                Contacto c = busquedaNombre(mostrarContactos());
+//                v.muestraContactoNombre(c);
                 break;
             case 4:
                 //mediante un método, buscamos un contacto  mediante el acceso directo  y lo mostramos mediante la vista.
-                c = busquedaNumero(mostrarContactos());
-                v.muestraContactoNombre(c);
+//                c = busquedaNumero(mostrarContactos());
+//                v.muestraContactoNombre(c);
 
                 break;
             case 5:
                 //modificamos el contacto mediante el método determinado.
-                modificaContacto(mostrarContactos());
+//                modificaContacto(mostrarContactos());
                 break;
             case 6:
                 //eliminamos el contacto mediante un metodo determinado.
-                borraContacto(mostrarContactos());
+//                borraContacto(mostrarContactos());
                 break;
             default:
                 v.mensaje("Error...");
@@ -87,9 +87,8 @@ public class Agenda {
 //                 modelo.escribeContacto(moos, c);
 //            }else{
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-             modelo.escribeContacto(oos, c);
-//            }
-           
+             m.escribeContacto(oos, c);
+//            }           
             //creamos un flujo de datos binario para enviarselo al metodo que hay en la clase companero
         } catch (IOException ex) {
             ex.getMessage();
@@ -102,7 +101,7 @@ public class Agenda {
 
         try {
             FileInputStream fis = new FileInputStream("d:/agenda.dat");
-            DataInputStream dis = new DataInputStream(fis);
+            ObjectInputStream ois = new ObjectInputStream(fis);
             //creamos un flujo de datos para mostrar los contactos de nuestro archivo y se lo mandamos a la clase companero
             Contacto[] lista =m.leerDatos(ois);
             return lista;
@@ -113,107 +112,109 @@ public class Agenda {
         return lista;
     }
 
-    public  companero busquedaNombre(companero[] lista) {
+    public  Contacto busquedaNombre(companero[] lista) {
         //obtenemos por parametro una lista  de la cual extraemos el contacto que coincide con en el nombre que obtenemos
         //desde la clase vista.
-
+ Contacto c=null;
         int indice = 0;
-        companero c = new companero();
-        String nombre = Vista.introduceNombre();
-        for (int i = 0; i < lista.length; i++) {
-            if (lista[i] != null) {
-                if (lista[i].getNombre().equalsIgnoreCase(nombre)) {
-                    indice = i;
-                }
-            }
-        }
-        c = lista[indice];
+//        companero c = new companero();
+//        String nombre = Vista.introduceNombre();
+//        for (int i = 0; i < lista.length; i++) {
+//            if (lista[i] != null) {
+//                if (lista[i].getNombre().equalsIgnoreCase(nombre)) {
+//                    indice = i;
+//                }
+//            }
+//        }
+//        c = lista[indice];
         return c;
     }
 
-    public  companero busquedaNumero(companero[] lista) {
-        companero c = new companero();
-        int indice = 0;
-        int telefono = Vista.introduceTelefono();
-        for (int i = 0; i < lista.length; i++) {
-            if (lista[i] != null) {
-                if (lista[i].getTelefono() == telefono) {
-                    indice = i;
-                }
-            }
-        }
-        c = lista[indice];
+    public  Contacto busquedaNumero(Contacto[] lista) {
+Contacto c=null;
+//        
+//companero c = new companero();
+//        int indice = 0;
+//        int telefono = Vista.introduceTelefono();
+//        for (int i = 0; i < lista.length; i++) {
+//            if (lista[i] != null) {
+//                if (lista[i].getTelefono() == telefono) {
+//                    indice = i;
+//                }
+//            }
+//        }
+//        c = lista[indice];
         return c;
     }
 
     public  void modificaContacto(companero[] lista) {
-        //primer paso obtener listado
-
-        companero[] listado = lista;
-
-        //segundo paso obtener contacto a modificar y su posicion en el array
-        companero c = busquedaNombre(mostrarContactos());
-        int indice = 0;
-        for (int i = 0; i < listado.length; i++) {
-            if (listado[i] != null) {
-                if (listado[i].getNombre().equalsIgnoreCase(c.getNombre())) {
-                    indice = i;
-                }
-            }
-        }
-        
-
-        //tercer paso modificar el contacto obtenido y escribirlo en el array
-        companero d = Vista.nuevoContacto();
-        listado[indice].setNombre(d.getNombre());
-        listado[indice].setTelefono(d.getTelefono());
-        listado[indice].setEmail(d.getEmail());
-        listado[indice].setBorrado(d.isBorrado());
-
-        //cuarto paso enviar listado a la clase companero para exportarlo al archivo..
-        try {
-            FileOutputStream fos = new FileOutputStream("d:/agenda.dat");
-            DataOutputStream dos = new DataOutputStream(fos);
-
-            companero.escribeContacto(dos, listado);
-        } catch (IOException e) {
-            e.getMessage();
-        }
-
-    }
-
-    public  void borraContacto(companero[] lista) {
-       //primer paso obtener listado
-
-        companero[] listado = lista;
-
-        //segundo paso obtener contacto a eliminar y su posicion en el array
-       
-        companero c = busquedaNombre(mostrarContactos());
-        int indice = 0;
-        for (int i = 0; i < listado.length; i++) {
-            if (listado[i] != null) {
-                if (listado[i].getNombre().equalsIgnoreCase(c.getNombre())) {
-                    indice = i;
-                }
-            }
-        }
-
-
-        //tercer paso modificar el contacto obtenido y escribirlo en el array
-       
-        listado[indice].setBorrado(true);
-
-        //cuarto paso enviar listado a la clase companero para exportarlo al archivo..
-        try {
-            FileOutputStream fos = new FileOutputStream("d:/agenda.dat");
-            DataOutputStream dos = new DataOutputStream(fos);
-
-            companero.escribeContacto(dos, listado);
-        } catch (IOException e) {
-            e.getMessage();
-        }
-
+//        //primer paso obtener listado
+//
+//        companero[] listado = lista;
+//
+//        //segundo paso obtener contacto a modificar y su posicion en el array
+//        companero c = busquedaNombre(mostrarContactos());
+//        int indice = 0;
+//        for (int i = 0; i < listado.length; i++) {
+//            if (listado[i] != null) {
+//                if (listado[i].getNombre().equalsIgnoreCase(c.getNombre())) {
+//                    indice = i;
+//                }
+//            }
+//        }
+//        
+//
+//        //tercer paso modificar el contacto obtenido y escribirlo en el array
+//        companero d = Vista.nuevoContacto();
+//        listado[indice].setNombre(d.getNombre());
+//        listado[indice].setTelefono(d.getTelefono());
+//        listado[indice].setEmail(d.getEmail());
+//        listado[indice].setBorrado(d.isBorrado());
+//
+//        //cuarto paso enviar listado a la clase companero para exportarlo al archivo..
+//        try {
+//            FileOutputStream fos = new FileOutputStream("d:/agenda.dat");
+//            DataOutputStream dos = new DataOutputStream(fos);
+//
+//            companero.escribeContacto(dos, listado);
+//        } catch (IOException e) {
+//            e.getMessage();
+//        }
+//
+//    }
+//
+//    public  void borraContacto(companero[] lista) {
+//       //primer paso obtener listado
+//
+//        companero[] listado = lista;
+//
+//        //segundo paso obtener contacto a eliminar y su posicion en el array
+//       
+//        companero c = busquedaNombre(mostrarContactos());
+//        int indice = 0;
+//        for (int i = 0; i < listado.length; i++) {
+//            if (listado[i] != null) {
+//                if (listado[i].getNombre().equalsIgnoreCase(c.getNombre())) {
+//                    indice = i;
+//                }
+//            }
+//        }
+//
+//
+//        //tercer paso modificar el contacto obtenido y escribirlo en el array
+//       
+//        listado[indice].setBorrado(true);
+//
+//        //cuarto paso enviar listado a la clase companero para exportarlo al archivo..
+//        try {
+//            FileOutputStream fos = new FileOutputStream("d:/agenda.dat");
+//            DataOutputStream dos = new DataOutputStream(fos);
+//
+//            companero.escribeContacto(dos, listado);
+//        } catch (IOException e) {
+//            e.getMessage();
+//        }
+//
     }
 
 }
