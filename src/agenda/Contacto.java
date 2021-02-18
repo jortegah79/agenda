@@ -22,6 +22,7 @@ public class Contacto implements Serializable {
     private String facebook;
     private String twitter;
     private String direccion;
+    private boolean borrado;
     
     
     public Contacto(){
@@ -37,6 +38,7 @@ public class Contacto implements Serializable {
         twitter = "";
         direccion = "";
         tipoContacto = "companero";
+        borrado=false;
         id = idSiguiente;
         idSiguiente++;
     }
@@ -50,6 +52,7 @@ public class Contacto implements Serializable {
         this.twitter = twitter;
         direccion = "";
         tipoContacto = "amigos";
+        borrado=false;
         id = idSiguiente;
         idSiguiente++;
     }
@@ -62,6 +65,7 @@ public class Contacto implements Serializable {
         this.twitter = twitter;
         this.direccion = direccion;
         tipoContacto = "familia";
+        borrado=false;
         id = idSiguiente;
         idSiguiente++;
     }
@@ -125,11 +129,26 @@ public class Contacto implements Serializable {
     public String getDireccion() {
         return direccion;
     }
+    public void setBorrado(boolean borrado){
+        this.borrado=borrado;
+    }
+    public boolean isBorrado(){
+        return borrado;
+    }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
     public String toString(){
+        if(tipoContacto.equals("companero")==true){
+            return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email);
+        }else if(tipoContacto.equals("amigos")==true){
+             return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter);
+        }else if(tipoContacto.equals("familia")==true){
+            return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter +"\t"+ direccion);
+        }
+        
         return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter +"\t"+ direccion);
+
     }
 }
