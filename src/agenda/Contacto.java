@@ -18,58 +18,20 @@ public class Contacto implements Serializable {
     private String email;
     private int id;
     private static int idSiguiente;
-    private String tipoContacto;
-    private String facebook;
-    private String twitter;
-    private String direccion;
     private boolean borrado;
-    
-    
-    public Contacto(){
-        
-    }          
+
+    public Contacto() {
+    }
 
     public Contacto(String nombre, int telefono, String email) {
-        
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
-        facebook = "";
-        twitter = "";
-        direccion = "";
-        tipoContacto = "companero";
-        borrado=false;
-        id = idSiguiente;
-        idSiguiente++;
-    }
-     public Contacto(String nombre, int telefono, String email, String facebook, String twitter) {
-        
-          
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
-        this.facebook = facebook;
-        this.twitter = twitter;
-        direccion = "";
-        tipoContacto = "amigos";
-        borrado=false;
-        id = idSiguiente;
-        idSiguiente++;
-    }
-     public Contacto(String nombre, int telefono, String email, String facebook, String twitter, String direccion) {
-        
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
-        this.facebook = facebook;
-        this.twitter = twitter;
-        this.direccion = direccion;
-        tipoContacto = "familia";
-        borrado=false;
-        id = idSiguiente;
-        idSiguiente++;
-    }
 
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.email = email;
+        borrado = false;
+        id = idSiguiente;
+        idSiguiente++;
+    }
 
     public String getNombre() {
         return nombre;
@@ -102,15 +64,46 @@ public class Contacto implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
-    public void setTipoContacto(String tipoContacto){
-        this.tipoContacto=tipoContacto;
+
+    public void setBorrado(boolean borrado) {
+        this.borrado = borrado;
     }
-    public String getTipoContacto(){
-        return tipoContacto;
+
+    public boolean isBorrado() {
+        return borrado;
     }
-    
-    
+
+}
+
+class companero extends Contacto implements Serializable {
+
+    public companero(String nombre, int telefono, String email) {
+
+        super(nombre, telefono, email);
+
+    }
+
+    public String toString() {
+        return ("Id: " + getId() + "\t\t" + this.getNombre() + "\t\t " + this.getTelefono() + "\t\t " + this.getEmail());
+    }
+}
+
+class amigos extends companero implements Serializable {
+
+    private String facebook;
+    private String twitter;
+    private boolean borrado;
+
+    public amigos(String nombre, int telefono, String email, String facebook, String twitter) {
+
+        super(nombre, telefono, email);
+
+        this.facebook = facebook;
+
+        this.twitter = twitter;
+
+    }
+
     public String getTwitter() {
         return twitter;
     }
@@ -126,29 +119,54 @@ public class Contacto implements Serializable {
     public void setFacebook(String facebook) {
         this.facebook = facebook;
     }
+
+    public String toString() {
+        return ("Id: " + getId() + "\t\t" + getNombre() + "\t\t " + getTelefono() + "\t\t " + getEmail() + "\t " + facebook + " \t" + twitter);
+    }
+}
+
+class familia extends amigos implements Serializable {
+
+    private String facebook;
+    private String twitter;
+    private String direccion;
+    private boolean borrado;
+
+    public familia(String nombre, int telefono, String email, String facebook, String twitter, String direccion) {
+
+        super(nombre, telefono, email, facebook, twitter);
+
+        this.facebook = facebook;
+        this.direccion = direccion;
+        this.twitter = twitter;
+
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String toString() {
+        return ("Id: " + getId() + "\t\t " + getNombre() + "\t\t " + getTelefono() + "\t\t " + getEmail() + "\t " + facebook + " \t" + twitter + "\t" + direccion);
+    }
+
     public String getDireccion() {
         return direccion;
-    }
-    public void setBorrado(boolean borrado){
-        this.borrado=borrado;
-    }
-    public boolean isBorrado(){
-        return borrado;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-    public String toString(){
-        if(tipoContacto.equals("companero")==true){
-            return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email);
-        }else if(tipoContacto.equals("amigos")==true){
-             return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter);
-        }else if(tipoContacto.equals("familia")==true){
-            return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter +"\t"+ direccion);
-        }
-        
-        return ("Id: "+ getId() + "\t\t" + tipoContacto+"\t\t "+ nombre + "\t\t "+ telefono +"\t\t "+ email+"\t "+facebook +" \t"+twitter +"\t"+ direccion);
-
     }
 }
