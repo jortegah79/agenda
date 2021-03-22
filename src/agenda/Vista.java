@@ -21,8 +21,8 @@ public class Vista {
         mensaje("Este es el menú de tu agenda");
         mensaje("1.Crear nuevo contacto");
         mensaje("2.Mostrar la lista de contactos.");
-        mensaje("3.Busqueda contacto por nombre");
-        mensaje("4.Busca contacto por el telefono");
+        mensaje("3.Busqueda contacto por nombre y apellido");
+        mensaje("4.Busca contacto por telefono");
         mensaje("5.Modifica un contacto");
         mensaje("6.Borrar un contacto");
         mensaje("");
@@ -44,8 +44,8 @@ public class Vista {
         } while (seleccion < MINOPCIONES && seleccion > MAXOPCIONES);
         return seleccion;
     }
-    //metodo que sirve para seleccionar el tipo de contacto que vamos a crear.
 
+//metodo que sirve para seleccionar el tipo de contacto que vamos a crear.
     public int seleccionTipoContacto() {
         Scanner teclado = new Scanner(System.in);
         int tipo = 0;
@@ -66,19 +66,21 @@ public class Vista {
 
     //**************************************************************************************************************************************************
     //Este es el metodo que nos permite entrar los datos de los nuevos contactos.    
-    public Contacto nuevoContacto() {
+    public Contacto nuevoContacto() { 
+        Scanner teclado = new Scanner(System.in);
         //solicitamos que tipo de contacto es
         int tipo = seleccionTipoContacto();
         //inicializammos todas las variables..
         boolean correcto = false;
         int telefono = 0;
         Contacto c = null;
-        String nombre = "", email = "", facebook = "", twitter = "", direccion = "";
-        Scanner teclado = new Scanner(System.in);
+        String nombre = "",apellido="", email = "", facebook = "", twitter = "", direccion = "";       
         //segun la seleccion que obtengamos antes, haremos más o menos entradas por teclado.
         if (tipo == 1 || tipo == 2 || tipo == 3) {
             mensaje("Escribe nombre de contacto");
             nombre = teclado.nextLine();
+             mensaje("Escribe apellido de contacto");
+            apellido = teclado.nextLine();
             mensaje("Escribe numero de telefono");
             while (!correcto) {
                 if (teclado.hasNextInt()) {
@@ -107,14 +109,15 @@ public class Vista {
         //finalmente, aqui habremos llegado si introducimos un familiar.
         //***Ahora crearemos los nuevos contactos, segun el tipo elegido.
         if (tipo == 1) {
-            c = new companero(nombre, telefono, email);
+            c = new companero(nombre,apellido, telefono, email);
         } else if (tipo == 2) {
-            c = new amigos(nombre, telefono, email, facebook, twitter);
+            c = new amigos(nombre,apellido, telefono, email, facebook, twitter);
 
         } else {
-            c = new familia(nombre, telefono, email, facebook, twitter, direccion);
+            c = new familia(nombre,apellido,telefono, email, facebook, twitter, direccion);
         }
         mensaje("contacto introducido.\n");
+        
         return c;
     }
 //*******************************************************************************************************************************************************************************
@@ -130,13 +133,13 @@ public class Vista {
         String nombre, email, facebook, twitter, direccion;
         int telefono;
         System.out.println("Tu agenda dispone de los siguientes contactos\n");
-        mensaje("contacto\t Nombre\t\tTelefono\temail\n");
-        for (int i = 0; i < lista.length; i++) {
-            if (lista[i] != null) {
-                mensaje(lista[i].toString());
-            }
-            System.out.println("Fin\n\n");
+        mensaje("Id \t grupo \t Nombre\t\tTelefono\temail \t facebook \t twitter \t\t direccion");
+        int i = 0;
+        while (lista[i] != null) {
+            mensaje(lista[i].toString());
+            i++;          
         }
+        System.out.println("Fin\n\n");
     }
 
     public String introduceNombre() {
