@@ -13,41 +13,49 @@ import java.io.*;
  */
 class modelo {
 
-    public void escribeArchivo(ObjectOutputStream oos, Contacto[] agenda) {
+    public void escribeArchivo(Contacto[] agenda) {
         Vista v = new Vista();
-        try (oos) {
+        File f = new File("d:/agenda.dat");
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+        for (int i = 0; i < agenda.length; i++) {
+            if (agenda[i] != null) {
+                if (agenda[i].isBorrado()==true) {
+                    agenda[i] = null;
+                }
+            }
+        }
+
+        try {
+            fos = new FileOutputStream(f);
+            oos = new ObjectOutputStream(fos);
             oos.writeObject(agenda);
             oos.close();
+            fos.close();
         } catch (IOException e) {
-            e.getMessage();
+            v.mensaje("Archivo no accesible o no existe");
         }
 
         v.mensaje("Agenda Guardada.");
     }
 
-    public void escribeArchivo(MiObjectOutputStream oos, Contacto[] agenda) {
-        //cogemos el flujo de datos que viene de la clase agenda y el objeto de la clase Contacto2
-        //que hemos creado en la clase vista y enviamos los datos al archivo incluido un boolean para indicar si esta o no borrado.
+    public Contacto[] leerArchivo() {
         Vista v = new Vista();
-        try (oos) {
-            oos.writeObject(agenda);
-            oos.close();
-        } catch (IOException e) {
-            e.getMessage();
-        }
-        v.mensaje("Contacto introducido");
-    }
-
-    public Contacto[] leerArchivo(ObjectInputStream ois) {
-        //declaramos algunas variables. 
+        File f = new File("d:/agenda.dat");
+        FileInputStream fis;
+        ObjectInputStream ois;
         Contacto[] agenda = new Contacto[150];
-        try (ois) {
-            while (ois.available() > 0) {
+        Contacto[] agendaSinBorrados = new Contacto[150];
+        try {
+            fis = new FileInputStream(f);
+            ois = new ObjectInputStream(fis);
+
+            while (ois.available() >= 0) {
                 agenda = (Contacto[]) ois.readObject();
             }
             ois.close();
         } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+            v.mensaje("Fin transferencia");
         }
         return agenda;
     }

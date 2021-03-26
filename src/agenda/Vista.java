@@ -45,7 +45,30 @@ public class Vista {
         return seleccion;
     }
 
-//metodo que sirve para seleccionar el tipo de contacto que vamos a crear.
+    public Contacto nuevoContacto() {
+        Scanner teclado = new Scanner(System.in);
+        //solicitamos que tipo de contacto es
+        int tipo = seleccionTipoContacto();
+        //inicializammos todas las variables..
+        boolean correcto = false;
+        int telefono = 0;
+        Contacto c = null;
+        String nombre = "", apellido = "", email = "", facebook = "", twitter = "", direccion = "";
+        //segun la seleccion que obtengamos antes, haremos más o menos entradas por teclado.
+        switch (tipo) {
+            case 1:
+                c = pideCompanero();
+                break;
+            case 2:
+                c = pideAmigos();
+                break;
+            case 3:
+                c = pideFamilia();
+                break;
+        }
+        return c;
+    }
+
     public int seleccionTipoContacto() {
         Scanner teclado = new Scanner(System.in);
         int tipo = 0;
@@ -64,91 +87,125 @@ public class Vista {
         return tipo;
     }
 
-    //**************************************************************************************************************************************************
-    //Este es el metodo que nos permite entrar los datos de los nuevos contactos.    
-    public Contacto nuevoContacto() { 
+    public Contacto pideCompanero() {
         Scanner teclado = new Scanner(System.in);
-        //solicitamos que tipo de contacto es
-        int tipo = seleccionTipoContacto();
-        //inicializammos todas las variables..
         boolean correcto = false;
+        String nombre, apellido, email;
         int telefono = 0;
-        Contacto c = null;
-        String nombre = "",apellido="", email = "", facebook = "", twitter = "", direccion = "";       
-        //segun la seleccion que obtengamos antes, haremos más o menos entradas por teclado.
-        if (tipo == 1 || tipo == 2 || tipo == 3) {
-            mensaje("Escribe nombre de contacto");
-            nombre = teclado.nextLine();
-             mensaje("Escribe apellido de contacto");
-            apellido = teclado.nextLine();
-            mensaje("Escribe numero de telefono");
-            while (!correcto) {
-                if (teclado.hasNextInt()) {
-                    telefono = teclado.nextInt();
-                    correcto = true;
-                } else {
-                    teclado.nextLine();
-                    mensaje("Error.No es un entero");
-                }
+        mensaje("Escribe nombre de contacto");
+        nombre = teclado.nextLine();
+        mensaje("Escribe apellido de contacto");
+        apellido = teclado.nextLine();
+        mensaje("Escribe numero de telefono");
+        while (!correcto) {
+            if (teclado.hasNextInt()) {
+                telefono = teclado.nextInt();
+                correcto = true;
+            } else {
+                teclado.nextLine();
+                mensaje("Error.No es un entero");
             }
-            teclado.nextLine();
-            mensaje("Introduce el email");
-            email = teclado.nextLine();
-        }//hasta aqui seria un companero...si es de los otros 2 tipos , continuara
-        if (tipo == 2 || tipo == 3) {
-            mensaje("Escribe la cuenta de  facebook");
-            facebook = teclado.nextLine();
-            mensaje("Escribe la cuenta de twitter ");
-            twitter = teclado.nextLine();
-        }//hasta aqui serian los amigos.
-        if (tipo == 3) {
-            mensaje("Escribe la direccion");
-            direccion = teclado.nextLine();
         }
-
-        //finalmente, aqui habremos llegado si introducimos un familiar.
-        //***Ahora crearemos los nuevos contactos, segun el tipo elegido.
-        if (tipo == 1) {
-            c = new companero(nombre,apellido, telefono, email);
-        } else if (tipo == 2) {
-            c = new amigos(nombre,apellido, telefono, email, facebook, twitter);
-
-        } else {
-            c = new familia(nombre,apellido,telefono, email, facebook, twitter, direccion);
-        }
-        mensaje("contacto introducido.\n");
-        
+        teclado.nextLine();
+        mensaje("Introduce el email");
+        email = teclado.nextLine();
+        Contacto c = new companero(nombre, apellido, telefono, email);
         return c;
     }
-//*******************************************************************************************************************************************************************************
+
+    public Contacto pideAmigos() {
+        Scanner teclado = new Scanner(System.in);
+        boolean correcto = false;
+        String nombre, apellido, email, facebook, twitter;
+        int telefono = 0;
+        mensaje("Escribe nombre de contacto");
+        nombre = teclado.nextLine();
+        mensaje("Escribe apellido de contacto");
+        apellido = teclado.nextLine();
+        mensaje("Escribe numero de telefono");
+        while (!correcto) {
+            if (teclado.hasNextInt()) {
+                telefono = teclado.nextInt();
+                correcto = true;
+            } else {
+                teclado.nextLine();
+                mensaje("Error.No es un entero");
+            }
+        }
+        teclado.nextLine();
+        mensaje("Introduce el email");
+        email = teclado.nextLine();
+        mensaje("Escribe cuenta de facebook");
+        facebook = teclado.nextLine();
+        mensaje("Escribe cuenta de twitter");
+        twitter = teclado.nextLine();
+        Contacto c = new amigos(nombre, apellido, telefono, email, facebook, twitter);
+        return c;
+    }
+
+    public Contacto pideFamilia() {
+        Scanner teclado = new Scanner(System.in);
+        boolean correcto = false;
+        String nombre, apellido, email, facebook, twitter, direccion;
+        int telefono = 0;
+        mensaje("Escribe nombre de contacto");
+        nombre = teclado.nextLine();
+        mensaje("Escribe apellido de contacto");
+        apellido = teclado.nextLine();
+        mensaje("Escribe numero de telefono");
+        while (!correcto) {
+            if (teclado.hasNextInt()) {
+                telefono = teclado.nextInt();
+                correcto = true;
+            } else {
+                teclado.nextLine();
+                mensaje("Error.No es un entero");
+            }
+        }
+        teclado.nextLine();
+        mensaje("Introduce el email");
+        email = teclado.nextLine();
+        mensaje("Escribe cuenta de facebook");
+        facebook = teclado.nextLine();
+        mensaje("Escribe cuenta de twitter");
+        twitter = teclado.nextLine();
+        mensaje("Escribe direccion");
+        direccion = teclado.nextLine();
+        Contacto c = new familia(nombre, apellido, telefono, email, facebook, twitter, direccion);
+        return c;
+    }
 
     public void mensaje(String mensaje) {
         System.out.println(mensaje);
-
     }
-    // Aqui hay un conflicto con los datos introducidos...
 
     public void mostrarContactos(Contacto[] lista) {
 
-        String nombre, email, facebook, twitter, direccion;
-        int telefono;
-        System.out.println("Tu agenda dispone de los siguientes contactos\n");
-        mensaje("Id \t grupo \t Nombre\t\tTelefono\temail \t facebook \t twitter \t\t direccion");
+        System.out.printf("%10s %10s %15s %15s %25s %15s %15s %n", "Nombre", "Apellido", "telefono", "correo", "facebook", "Twitter", "Direccion");
         int i = 0;
         while (lista[i] != null) {
             mensaje(lista[i].toString());
-            i++;          
+            if(lista[i].isBorrado()){
+            mensaje("ok");
+            }
+            i++;
         }
         System.out.println("Fin\n\n");
     }
 
-    public String introduceNombre() {
-        Scanner teclado = new Scanner(System.in);
-        String nombre;
-        mensaje("Introduce el nombre que quieres buscar...");
-        nombre = teclado.next();
+    public void mostrarContactos(Contacto contacto) {
 
-        return nombre;
+        System.out.printf("%10s %10s %15s %15s %25s %15s %15s %n", "Nombre", "Apellido", "telefono", "correo", "facebook", "Twitter", "Direccion");
+        mensaje(contacto.toString());
+        System.out.println("\n");
+    }
+
+    public String dameString(String tipo) {
+        Scanner teclado = new Scanner(System.in);
+        String texto;
+        mensaje("Introduce el " + tipo + " que quieres buscar...");
+        texto = teclado.next();
+        return texto;
     }
 
     public int introduceTelefono() {
@@ -166,16 +223,4 @@ public class Vista {
         }
         return telefono;
     }
-
-    public void muestraContactoTelefono(Contacto c) {
-        mensaje("Nombre\t\tTelefono\tEmail\n");
-        System.out.println(c.getNombre() + "\t\t" + c.getTelefono() + "\t" + c.getEmail());
-    }
-
-    public void muestraContactoNombre(Contacto c) {
-        mensaje("Nombre\t\tTelefono\tEmail\n");
-        System.out.println(c.getNombre() + "\t" + c.getTelefono() + "\t" + c.getEmail());
-
-    }
-
 }
